@@ -1,6 +1,6 @@
-import store from '../App.js';
+import store from '../components/App.js';
 
-function contactReducer(state, action) {
+export function contactReducer(state, action) {
   if (state === undefined) {
     state = [];
   }
@@ -11,7 +11,7 @@ function contactReducer(state, action) {
   return state;
 }
 
-export function addUser(nameAdd, phoneAdd){
+export function addContact(nameAdd, phoneAdd){
   return {
     type: 'ADD_USER',
     user: {
@@ -20,8 +20,3 @@ export function addUser(nameAdd, phoneAdd){
     }
   }
 };
-
-
-
-
-export default contactReducer;

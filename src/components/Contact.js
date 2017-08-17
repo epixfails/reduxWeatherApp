@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import '../App.css';
+import {ContactName, ContactPhone, ListItem} from '../styled/styles.js';
 
 class Contact extends React.Component{
   render(){
-    return <li>
-        <div className = "name">{this.props.name}</div>
-        <div className = "phone">{this.props.phone}</div>
-      </li>
+    return <ListItem>
+        <ContactName>{this.props.name}</ContactName>
+        <ContactPhone>{this.props.phone}</ContactPhone>
+      </ListItem>
   }
 }
 

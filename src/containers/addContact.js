@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
-import store from '../App.js';
-import contactReducer from '../reducers/reducers.js';
-import addUser from '../reducers/reducers.js';
+import React, {Component} from 'react';
+import store from '../components/App.js';
+import {contactReducer, addContact} from '../reducers/reducers.js';
+import {InputSubmit, Input, AddContactWrapper} from '../styled/styles.js';
+
 let nameInput = null;
 let phone = 12345;
 
@@ -13,18 +14,19 @@ class AddContact extends Component {
   }
   handleChange(event){
     nameInput = event.target.value;
+    console.log(nameInput);
   }
   handleAdd(event){
-    store.dispatch(addUser(nameInput, phone))
+    contactReducer([], addContact(nameInput, phone))
     console.log(store);
   }
   render(){
     return(
-      <div>
-        <input className="input-name" onChange = {this.handleChange}></input>
-        <input className="input-phone"></input>
-        <button className="submit-contact" onClick = {this.handleAdd}>Add</button>
-      </div>
+      <AddContactWrapper>
+        <Input placeholder="new contact name here...." onChange = {this.handleChange}></Input>
+        <Input placeholder="phone here..."></Input>
+        <InputSubmit onClick={this.handleAdd}>Add</InputSubmit>
+      </AddContactWrapper>
     )
   }
 }
