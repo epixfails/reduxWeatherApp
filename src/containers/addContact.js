@@ -1,53 +1,55 @@
-import React, {Component} from 'react';
-import {addContact} from '../actions/actions.js';
-import {InputSubmit, Input, AddContactWrapper} from '../styled/styles.js';
-import {connect} from 'react-redux';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { addContact } from '../actions/actions';
+import { InputSubmit, Input, AddContactWrapper } from '../styled/styles';
 
 class AddContact extends Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
     this.state = {
       name: '',
       phone: '',
-    }
+    };
     this.handleChangeName = this.handleChangeName.bind(this);
     this.handleChangePhone = this.handleChangePhone.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
   }
-  handleChangeName(event){
+  handleChangeName(event) {
     this.setState({
       name: event.target.value,
-    })
+    });
   }
-  handleChangePhone(event){
+  handleChangePhone(event) {
     this.setState({
       phone: event.target.value,
-    })
+    });
   }
-  handleAdd = (event) => {
-    event.preventDefault();
+  handleAdd() {
     this.props.localAddContact(this.state.name, this.state.phone);
   }
 
-  render(){
-    return(
+  render() {
+    return (
       <AddContactWrapper>
-        <Input ref="name" placeholder="new contact name here...." onChange = {this.handleChangeName}></Input>
-        <Input ref="phone" placeholder="phone here..." onChange = {this.handleChangePhone}></Input>
+        <Input placeholder="new contact name here...." onChange={this.handleChangeName} />
+        <Input placeholder="phone here..." onChange={this.handleChangePhone} />
         <InputSubmit onClick={this.handleAdd}>Add</InputSubmit>
       </AddContactWrapper>
-    )
+    );
   }
 }
 
-
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-      localAddContact: (name, phone) => {
-        dispatch(addContact(name, phone));
-      }
-  }
-}
+    localAddContact: (name, phone) => {
+      dispatch(addContact(name, phone));
+    },
+  };
+};
+
+AddContact.PropTypes = {
+  localAddContact: PropTypes.func,
+};
 
 
 export default connect(null, mapDispatchToProps)(AddContact);

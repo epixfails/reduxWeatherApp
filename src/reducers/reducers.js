@@ -1,4 +1,3 @@
-
 const initialState = {
   contacts: [
     {
@@ -11,21 +10,21 @@ const initialState = {
     },
   ],
   filterValue: '',
-}
+};
 
 
-export function contactReducer(state, action) {
+export default function contactReducer(state, action) {
   if (state === undefined) {
     state = initialState;
   }
   if (action.type === 'ADD_USER') {
-    const newState = Object.assign({}, state);
-    newState.contacts.push(action.user)
+    const newState = { ...state };
+    newState.contacts.push(action.user);
     return newState;
   }
   if (action.type === 'FILTER_USER') {
-    const newState = Object.assign({}, state);
-    if(action.filter.length) {
+    const newState = { ...state };
+    if (action.filter.length) {
       newState.filterValue = action.filter;
     } else {
       newState.filterValue = '';

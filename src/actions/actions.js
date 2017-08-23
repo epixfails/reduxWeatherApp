@@ -1,22 +1,22 @@
 
-export function addContact(newname, num){
+export function addContact(newname, num) {
   return {
     type: 'ADD_USER',
-    user: {name: newname, phone: num}
-  }
+    user: { name: newname, phone: num },
+  };
 }
 
-export function filterContact(filterStr){
+export function filterContact(filterStr) {
   return {
     type: 'FILTER_USER',
     filter: filterStr,
-  }
+  };
 }
 
 
-export function removeContact(newname, num){
+export function removeContact(newname, num) {
   return {
     type: 'REMOVE_USER',
-    user: {name: newname, phone: num}
-  }
+    user: { name: newname, phone: num },
+  };
 }

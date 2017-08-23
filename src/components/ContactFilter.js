@@ -1,28 +1,29 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {Input} from '../styled/styles.js';
-import {filterContact} from '../actions/actions.js';
+import React, { Component} from 'react';
+import { connect } from 'react-redux';
+import { Input } from '../styled/styles';
+import { filterContact } from '../actions/actions';
 
 
 class ContactFilter extends Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
     this.handleFilter = this.handleFilter.bind(this);
   }
-  handleFilter(event){
+  handleFilter(event) {
     this.props.localFilter(event.target.value);
   }
-  render(){
-    return <Input placeholder="filter contacts by name" onChange = {this.handleFilter}/>
+  render() {
+    return <Input placeholder="filter contacts by name" onChange={this.handleFilter} />
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-      localFilter: (filter) => {
-        dispatch(filterContact(filter));
-      }
-  }
-}
+    localFilter: (filter) => {
+      dispatch(filterContact(filter));
+    },
+  };
+};
+
 
 export default connect(null, mapDispatchToProps)(ContactFilter);

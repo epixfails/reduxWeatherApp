@@ -1,5 +1,4 @@
-import { injectGlobal } from 'styled-components';
-import styled from 'styled-components';
+import styled, { injectGlobal } from 'styled-components';
 
 injectGlobal`
   body {
@@ -35,9 +34,9 @@ export const InputSubmit = styled.button`
   padding: 8px;
   font-size: 18px;
   &:hover {
-		background: #FF8C32;
+    background: #FF8C32;
     color: #fff;
-	}
+  }
 `;
 
 export const Input = styled.input`
@@ -54,7 +53,7 @@ export const List = styled.ul`
   padding:0px;
   margin:0 auto;
   width:100%;
-  height: 120px;
+  height: 220px;
   overflow-y: scroll;
 `;
 

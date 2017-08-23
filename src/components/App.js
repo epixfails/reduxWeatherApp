@@ -1,20 +1,16 @@
-import React  from 'react';
-import AddContact from '../containers/addContact.js';
-import { ContactList } from '../styled/styles.js';
-import ContactFilter from './ContactFilter.js';
-import ListOfContacts from './ListOfContacts.js';
+import React from 'react';
+import AddContact from '../containers/addContact';
+import { ContactList } from '../styled/styles';
+import ContactFilter from './ContactFilter';
+import ListOfContacts from './ListOfContacts';
 
 
-const App = () => {
-  return (
-    <ContactList>
-      <ContactFilter/>
-      <ListOfContacts/>
-      <AddContact/>
-    </ContactList>
-    )
-  }
-
-
+const App = () => (
+  <ContactList>
+    <ContactFilter />
+    <ListOfContacts />
+    <AddContact />
+  </ContactList>
+);
 
 export default App;
