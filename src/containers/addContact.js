@@ -1,30 +1,39 @@
 import React, {Component} from 'react';
-import store from '../components/App.js';
-import {contactReducer, addContact} from '../reducers/reducers.js';
+import {addContact} from '../actions/actions.js';
 import {InputSubmit, Input, AddContactWrapper} from '../styled/styles.js';
-
-let nameInput = null;
-let phone = 12345;
+import {connect} from 'react-redux';
 
 class AddContact extends Component {
   constructor(props){
     super(props)
-    this.handleChange = this.handleChange.bind(this);
+    this.state = {
+      name: '',
+      phone: '',
+    }
+    this.handleChangeName = this.handleChangeName.bind(this);
+    this.handleChangePhone = this.handleChangePhone.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
   }
-  handleChange(event){
-    nameInput = event.target.value;
-    console.log(nameInput);
+  handleChangeName(event){
+    this.setState({
+      name: event.target.value,
+    })
   }
-  handleAdd(event){
-    contactReducer([], addContact(nameInput, phone))
-    console.log(store);
+  handleChangePhone(event){
+    this.setState({
+      phone: event.target.value,
+    })
   }
+  handleAdd = (event) => {
+    event.preventDefault();
+    this.props.localAddContact(this.state.name, this.state.phone);
+  }
+
   render(){
     return(
       <AddContactWrapper>
-        <Input placeholder="new contact name here...." onChange = {this.handleChange}></Input>
-        <Input placeholder="phone here..."></Input>
+        <Input ref="name" placeholder="new contact name here...." onChange = {this.handleChangeName}></Input>
+        <Input ref="phone" placeholder="phone here..." onChange = {this.handleChangePhone}></Input>
         <InputSubmit onClick={this.handleAdd}>Add</InputSubmit>
       </AddContactWrapper>
     )
@@ -32,4 +41,13 @@ class AddContact extends Component {
 }
 
 
-export default AddContact;
+const mapDispatchToProps = dispatch => {
+  return {
+      localAddContact: (name, phone) => {
+        dispatch(addContact(name, phone));
+      }
+  }
+}
+
+
+export default connect(null, mapDispatchToProps)(AddContact);

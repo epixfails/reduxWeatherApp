@@ -1,22 +1,36 @@
-import store from '../components/App.js';
+
+const initialState = {
+  contacts: [
+    {
+      name: 'vasya',
+      phone: '111',
+    },
+    {
+      name: 'petya',
+      phone: '222',
+    },
+  ],
+  filterValue: '',
+}
+
 
 export function contactReducer(state, action) {
   if (state === undefined) {
-    state = [];
+    state = initialState;
   }
   if (action.type === 'ADD_USER') {
-    var newState = state.concat([action.user]);
+    const newState = Object.assign({}, state);
+    newState.contacts.push(action.user)
+    return newState;
+  }
+  if (action.type === 'FILTER_USER') {
+    const newState = Object.assign({}, state);
+    if(action.filter.length) {
+      newState.filterValue = action.filter;
+    } else {
+      newState.filterValue = '';
+    }
     return newState;
   }
   return state;
 }
-
-export function addContact(nameAdd, phoneAdd){
-  return {
-    type: 'ADD_USER',
-    user: {
-      name: nameAdd,
-      phone: phoneAdd,
-    }
-  }
-};
