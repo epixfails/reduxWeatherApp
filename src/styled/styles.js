@@ -41,6 +41,7 @@ export const InputSubmit = styled.button`
 
 export const Input = styled.input`
   width:100%;
+  overflow: hidden;
   line-height:24px;
   font-size: 16px;
   margin: 5px 0;
@@ -64,4 +65,38 @@ export const ListItem = styled.li`
   list-style: none;
   padding: 5px 10px;
   border-bottom: 1px rgba(255, 140, 50, 0.2) solid;
+  background: #fff;
+`;
+
+ListItem.defaultProps = {
+  theme: {
+    main: 'blue',
+  },
+};
+
+export const theme = {
+  main: 'mediumseagreen',
+};
+
+
+export const ButtonRemove = styled.button`
+  border: none;
+  background: #fff;
+`;
+
+export const Icon = styled.img`
+  width: 15px;
+`;
+
+export const Label = styled.label`
+  position: relative;
+  padding-left: 20px;
+  display: inline-block;
+  margin: 5px 0px;
+`;
+
+export const CheckboxImportance = styled.input.attrs({ type: 'checkbox' })`
+  position: absolute;
+  left: 0;
+  top: 2px;
 `;

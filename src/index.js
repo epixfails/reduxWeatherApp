@@ -7,8 +7,13 @@ import './styled/styles';
 import contactReducer from './reducers/reducers';
 import registerServiceWorker from './registerServiceWorker';
 
+const initialState = {
+  counter: 0,
+  contacts: [],
+  filterValue: '',
+};
 
-let store = createStore(contactReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const store = createStore(contactReducer, initialState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 ReactDOM.render(
   <Provider store={store}>

@@ -2,23 +2,32 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { List } from '../styled/styles';
 import Contact from './Contact';
+import { removeContact } from '../actions/actions';
 
-const ListOfContacts = (props) => {
-  return (
+const ListOfContacts = props => (
     <List>
       {
         props.contactsArray.map(function (el, index) {
           return (
             <Contact
+              onClick={() => props.localRemoveContact(index)}
               name={el.name}
               key={index}
               phone={el.phone}
+              important={el.important}
             />
           );
         })
       }
     </List>
   );
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    localRemoveContact: (index) => {
+      dispatch(removeContact(index));
+    },
+  };
 };
 
 const mapStateToProps = (state) => {
@@ -35,8 +44,9 @@ ListOfContacts.PropTypes = {
   contactsArray: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     phone: PropTypes.string.isRequired,
+    important: PropTypes.bool.isRequired,
   }).isRequired).isRequired,
 };
 
 
-export default connect(mapStateToProps)(ListOfContacts);
+export default connect(mapStateToProps, mapDispatchToProps)(ListOfContacts);

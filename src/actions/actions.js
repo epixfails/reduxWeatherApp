@@ -1,8 +1,8 @@
 
-export function addContact(newname, num) {
+export function addContact(newname, num, importanceState) {
   return {
     type: 'ADD_USER',
-    user: { name: newname, phone: num },
+    user: { name: newname, phone: num, important: importanceState },
   };
 }
 
@@ -14,9 +14,9 @@ export function filterContact(filterStr) {
 }
 
 
-export function removeContact(newname, num) {
+export function removeContact(key) {
   return {
     type: 'REMOVE_USER',
-    user: { name: newname, phone: num },
+    id: key,
   };
 }
