@@ -8,10 +8,27 @@ injectGlobal`
   }
 `;
 
+export const AppWrap = styled.div`
+  margin:0 auto;
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+`;
+
+export const ContactList = styled.div`
+  width: 60%;
+  padding: 10px 0;
+`;
+
+export const CityWeather = styled.div`
+  width: 40%;
+`;
+
 export const ContactName = styled.div`
   width:50%;
   font-size:20px;
   font-weight: 700;
+  overflow: hidden;
 `;
 export const AddContactWrapper = styled.div`
   margin-top: 20px;
@@ -22,9 +39,22 @@ export const ContactPhone = styled.div`
   font-size:18px;
 `;
 
-export const ContactList = styled.div`
-  margin:0 auto;
-  width: 40%;
+export const ContactControls = styled.div`
+  width: 10%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+`;
+
+export const LinkAddMore = styled.span`
+  display: inline-block;
+  cursor: pointer;
+  color: #FF8C32;
+  margin: 10px 0 14px;
+`;
+
+export const AddInfo = styled.div`
+  margin-bottom: 10px;
 `;
 
 export const InputSubmit = styled.button`
@@ -63,21 +93,24 @@ export const ListItem = styled.li`
   flex-direction: row;
   justify-content: space-between;
   list-style: none;
-  padding: 5px 10px;
+  padding: 10px;
   border-bottom: 1px rgba(255, 140, 50, 0.2) solid;
-  background: #fff;
+  &::after{
+  }
 `;
 
-ListItem.defaultProps = {
-  theme: {
-    main: 'blue',
-  },
-};
-
-export const theme = {
-  main: 'mediumseagreen',
-};
-
+export const ListEmpty = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-top: 40px;
+  text-align: center;
+  font-size: 24px;
+  color: #FF8C32;
+`;
+export const ImgEmptyList = styled.img`
+  display: block;
+  height: 100px;
+`;
 
 export const ButtonRemove = styled.button`
   border: none;
@@ -85,18 +118,12 @@ export const ButtonRemove = styled.button`
 `;
 
 export const Icon = styled.img`
-  width: 15px;
-`;
+  width: ${props => props.city ? '35px' : '15px'};
+  float: ${props => props.city ? 'left' : 'none'};
+  margin: ${props => props.city ? '5px' : '0'};
 
-export const Label = styled.label`
-  position: relative;
-  padding-left: 20px;
-  display: inline-block;
-  margin: 5px 0px;
 `;
-
-export const CheckboxImportance = styled.input.attrs({ type: 'checkbox' })`
-  position: absolute;
-  left: 0;
-  top: 2px;
+export const IconWeather = styled.img`
+  width: 25px;
+  height: 20px;
 `;

@@ -1,16 +1,20 @@
 import React from 'react';
 import AddContact from '../containers/addContact';
-import { ContactList } from '../styled/styles';
+import { ContactList, AppWrap } from './styles';
 import ContactFilter from './ContactFilter';
 import ListOfContacts from './ListOfContacts';
+import RightPanel from './RightPanel';
 
 
 const App = () => (
-  <ContactList>
-    <ContactFilter />
-    <ListOfContacts />
-    <AddContact />
-  </ContactList>
+  <AppWrap>
+    <ContactList>
+      <ContactFilter />
+      <ListOfContacts />
+      <AddContact />
+    </ContactList>
+      <RightPanel />
+  </AppWrap>
 );
 
 export default App;

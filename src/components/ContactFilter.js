@@ -1,6 +1,6 @@
 import React, { Component} from 'react';
 import { connect } from 'react-redux';
-import { Input } from '../styled/styles';
+import { Input } from './styles';
 import { filterContact } from '../actions/actions';
 
 
