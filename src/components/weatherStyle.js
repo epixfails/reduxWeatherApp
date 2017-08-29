@@ -7,6 +7,15 @@ export const WeatherWrap = styled.div`
 export const WeatherMain = styled.div`
 `;
 
+export const WeatherInfo = styled.p`
+
+`;
+export const WeatherImage = styled.img`
+  margin-right: 20px;
+  width: 60px;
+  height: 60px;
+`;
+
 export const WeatherImgWrap = styled.div`
   width: 100%;
   text-align: center;
@@ -24,7 +33,9 @@ export const WeatherMainInfo = styled.div`
 
 export const WeatherMainInfoTemperature = styled.p`
   margin: 5px 10px;
-  font-size: 24px;
+  font-size: 36px;
+  font-weight: 700;
+  color: #31a251;
 `;
 
 export const WeatherCityTitle = styled.h2`

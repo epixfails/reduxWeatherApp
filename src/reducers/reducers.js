@@ -37,6 +37,7 @@ export default function contactReducer(state, action) {
     const newState = { ...state };
     if (action.forecast === 'not found') {
       newState.api.errorFetch = 'city not found';
+      newState.cityForecast = {};
     } else {
       newState.cityForecast = action.forecast;
       newState.api.errorFetch = '';

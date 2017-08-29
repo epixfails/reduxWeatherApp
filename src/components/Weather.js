@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { WeatherWrap, WeatherMain, WeatherDetail, WeatherMainInfo, WeatherMainInfoTemperature, WeatherCountry, WeatherCityTitle, WeatherImgWrap, ImageWeather } from './weatherStyle';
+import WeatherError from './WeatherError';
+import { WeatherWrap, WeatherMain, WeatherMainInfo, WeatherMainInfoTemperature, WeatherCountry, WeatherCityTitle, WeatherImgWrap, ImageWeather, WeatherInfo, WeatherImage } from './weatherStyle';
 import sky from '../img/sky.svg';
 
 const Weather = props => (
@@ -15,17 +16,26 @@ const Weather = props => (
     </WeatherMain>
     )}
     {props.fetchState === 'fetchDone' && (
-      <div>
+      props.fetchError === '' && (
         <WeatherMain>
-          <WeatherCityTitle>Weather in {props.weather.name}<WeatherCountry></WeatherCountry></WeatherCityTitle>
+          <WeatherCityTitle>Weather in {props.weather.name}
+            <WeatherCountry></WeatherCountry>
+          </WeatherCityTitle>
           <WeatherMainInfo>
-            <WeatherMainInfoTemperature>{props.weather.main.temp}</WeatherMainInfoTemperature>
+            <WeatherImage src={`http://openweathermap.org/img/w/${props.weather.weather[0].icon}.png`} alt="weather" />
+            <WeatherMainInfoTemperature>
+              {Math.floor((props.weather.main.temp - 273) * 100) / 100} °С
+            </WeatherMainInfoTemperature>
           </WeatherMainInfo>
-          <p>Temperature:</p>
-          <p>Humidity: </p>
-          <p>Wind: </p>
+          <WeatherInfo>Temperature: {Math.floor((props.weather.main.temp - 273) * 100) / 100} °С </WeatherInfo>
+          <WeatherInfo>{props.weather.weather[0].description}</WeatherInfo>
+          <WeatherInfo>Humidity: {props.weather.main.humidity} %</WeatherInfo>
+          <WeatherInfo>Wind: {props.weather.wind.speed} m/s</WeatherInfo>
         </WeatherMain>
-      </div>
+      )
+    )}
+    {props.fetchError === 'city not found' && (
+      <WeatherError />
     )}
   </WeatherWrap>
 );
@@ -41,10 +51,12 @@ const mapStateToProps = (state) => {
   const cityWeather = state.cityWeather;
   const isFetching = state.api.isFetching;
   const cityForecast = state.cityForecast;
+  const error = state.api.errorFetch;
   return ({
     city: cityWeather,
     weather: cityForecast,
     fetchState: isFetching,
+    fetchError: error,
   });
 };
 

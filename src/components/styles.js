@@ -4,12 +4,14 @@ injectGlobal`
   body {
     margin: 0;
     padding: 0;
+    color: #1a1a1a;
     font-family: 'Lato', sans-serif;
   }
 `;
 
 export const AppWrap = styled.div`
   margin:0 auto;
+  max-width: 1200px;
   width: 80%;
   display: flex;
   flex-direction: row;

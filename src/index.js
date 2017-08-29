@@ -36,12 +36,18 @@ const initialState = {
   },
 };
 
+const persistedState = localStorage.getItem('weatherAppState') ? JSON.parse(localStorage.getItem('weatherAppState')) : initialState;
+
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
   contactReducer,
-  initialState,
+  persistedState,
   composeWithDevTools(applyMiddleware(sagaMiddleware)),
 );
+
+store.subscribe(() => {
+  localStorage.setItem('weatherAppState', JSON.stringify(store.getState()))
+});
 
 sagaMiddleware.run(mySaga);
 
