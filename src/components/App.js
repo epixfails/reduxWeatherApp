@@ -13,7 +13,7 @@ const App = () => (
       <ListOfContacts />
       <AddContact />
     </ContactList>
-      <RightPanel />
+    <RightPanel />
   </AppWrap>
 );
 
