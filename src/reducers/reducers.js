@@ -9,6 +9,10 @@ export default function contactReducer(state, action) {
   }
   if (action.type === REMOVE_USER) {
     const newState = { ...state };
+    if (newState.contacts[action.id].name === newState.currentContact.name) {
+      newState.currentContact = {};
+      newState.api.isFetching = 'initial';
+    }
     newState.contacts.splice(action.id, 1);
     return newState;
   }

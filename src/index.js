@@ -40,9 +40,9 @@ const persistedState = localStorage.getItem('weatherAppState') ? JSON.parse(loca
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
-  contactReducer,
-  persistedState,
-  composeWithDevTools(applyMiddleware(sagaMiddleware)),
+              contactReducer,
+              persistedState,
+              composeWithDevTools(applyMiddleware(sagaMiddleware)),
 );
 
 store.subscribe(() => {
