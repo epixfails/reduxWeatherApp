@@ -14,6 +14,11 @@ export const AppWrap = styled.div`
   max-width: 1200px;
   width: 80%;
   display: flex;
+  flex-direction: column;
+`;
+
+export const PanelsWrap = styled.div`
+  display: flex;
   flex-direction: row;
 `;
 

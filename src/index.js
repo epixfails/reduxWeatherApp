@@ -44,11 +44,9 @@ const store = createStore(
               persistedState,
               composeWithDevTools(applyMiddleware(sagaMiddleware)),
 );
-
 store.subscribe(() => {
   localStorage.setItem('weatherAppState', JSON.stringify(store.getState()))
 });
-
 sagaMiddleware.run(mySaga);
 
 ReactDOM.render(
