@@ -1,5 +1,5 @@
 import React from 'react';
-import AddContact from '../containers/addContact';
+import AddContact from './addContact';
 import { ContactList, AppWrap, PanelsWrap } from './styles';
 import ContactFilter from './ContactFilter';
 import ListOfContacts from './ListOfContacts';

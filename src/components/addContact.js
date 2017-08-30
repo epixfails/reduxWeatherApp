@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addContact } from '../actions/actions';
-import { InputSubmit, Input, AddContactWrapper, LinkAddMore, AddInfo } from '../components/styles';
+import { InputSubmit, Input, AddContactWrapper, LinkAddMore, AddInfo, ErrorMsg } from './styles';
 
 function validateInput() {
   return true;
@@ -17,6 +17,7 @@ class AddContact extends Component {
       cityInput: false,
       city: '',
       email: '',
+      errorAdd: this.props.errorAdd,
     };
     this.handleChangeName = this.handleChangeName.bind(this);
     this.handleChangePhone = this.handleChangePhone.bind(this);
@@ -74,6 +75,9 @@ class AddContact extends Component {
   render() {
     return (
       <AddContactWrapper>
+        {this.props.errorAdd && (
+          <ErrorMsg>This friend is already in list</ErrorMsg>
+        )}
         <Input
           innerRef={input => this.contactName = input}
           placeholder="new contact name here...."
@@ -116,9 +120,17 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
+const mapStateToProps = (state) => {
+  const ifError = state.addContactError;
+  return {
+    errorAdd: ifError,
+  };
+};
+
+
 AddContact.PropTypes = {
   localAddContact: PropTypes.func.isRequired,
 };
 
 
-export default connect(null, mapDispatchToProps)(AddContact);
+export default connect(mapStateToProps, mapDispatchToProps)(AddContact);

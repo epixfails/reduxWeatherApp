@@ -9,7 +9,7 @@ function requestApi(city) {
     })
     .then((data) => {
       city = city.toLowerCase();
-      if (data.name.toLowerCase() === city) {
+      if (data.name.toLowerCase() === city && city.length) {
         return data;
       }
       return 'not found';

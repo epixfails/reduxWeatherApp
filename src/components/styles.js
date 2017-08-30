@@ -64,6 +64,11 @@ export const AddInfo = styled.div`
   margin-bottom: 10px;
 `;
 
+export const ErrorMsg = styled.span`
+  color: #FF8C32;
+  font-size: 14px;
+`;
+
 export const InputSubmit = styled.button`
   width:100%;
   background-color:#fff;
@@ -102,7 +107,9 @@ export const ListItem = styled.li`
   list-style: none;
   padding: 10px;
   border-bottom: 1px rgba(255, 140, 50, 0.2) solid;
-  &::after{
+  background: ${props => props.active ? 'rgba(255, 140, 50, 0.2)' : '#fff'};
+  &:hover{
+    background: #ffc699;
   }
 `;
 
@@ -121,7 +128,7 @@ export const ImgEmptyList = styled.img`
 
 export const ButtonRemove = styled.button`
   border: none;
-  background: #fff;
+  background: transparent;
 `;
 
 export const Icon = styled.img`

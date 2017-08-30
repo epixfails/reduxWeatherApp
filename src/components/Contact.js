@@ -4,8 +4,8 @@ import { ContactName, ContactPhone, ListItem, ButtonRemove, Icon, ContactControl
 import trash from '../img/trash.svg';
 
 const Contact = props => (
-  <ListItem>
-    <ContactName onClick={props.onClickSetCurrentContact}>
+  <ListItem active={props.active}>
+    <ContactName  onClick={props.onClickSetCurrentContact}>
       {props.name}
     </ContactName>
     <ContactPhone onClick={props.onClickSetCurrentContact}>
@@ -20,7 +20,6 @@ const Contact = props => (
 Contact.PropTypes = {
   name: PropTypes.string.isRequired,
   phone: PropTypes.string.isRequired,
-  important: PropTypes.bool.isRequired,
   onClickRemove: PropTypes.func.isRequired,
   onClickSetCurrentContact: PropTypes.func.isRequired,
 };

@@ -20,6 +20,7 @@ const ListOfContacts = props => (
             key={index}
             phone={el.phone}
             city={el.city}
+            active={el.active}
           />
         );
     })}

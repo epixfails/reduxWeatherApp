@@ -27,10 +27,18 @@ const Weather = props => (
               {Math.floor((props.weather.main.temp - 273) * 100) / 100} °С
             </WeatherMainInfoTemperature>
           </WeatherMainInfo>
-          <WeatherInfo>Temperature: {Math.floor((props.weather.main.temp - 273) * 100) / 100} °С </WeatherInfo>
-          <WeatherInfo>{props.weather.weather[0].description}</WeatherInfo>
-          <WeatherInfo>Humidity: {props.weather.main.humidity} %</WeatherInfo>
-          <WeatherInfo>Wind: {props.weather.wind.speed} m/s</WeatherInfo>
+          <WeatherInfo>Temperature:
+            {Math.floor((props.weather.main.temp - 273) * 100) / 100} °С
+          </WeatherInfo>
+          <WeatherInfo>
+            {props.weather.weather[0].description}
+          </WeatherInfo>
+          <WeatherInfo>Humidity:
+            {props.weather.main.humidity} %
+          </WeatherInfo>
+          <WeatherInfo>Wind:
+            {props.weather.wind.speed} m/s
+          </WeatherInfo>
         </WeatherMain>
       )
     )}

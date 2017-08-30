@@ -27,6 +27,7 @@ const initialState = {
     },
   ],
   currentContact: {},
+  addContactError: false,
   filterValue: '',
   cityWeather: 'Samara',
   cityForecast: {},
