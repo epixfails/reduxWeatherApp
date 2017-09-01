@@ -43,6 +43,7 @@ class CurrentPosition extends Component {
       weather: {},
       fetchState: null,
     };
+    this.handleRenewPosition = this.handleRenewPosition.bind(this);
   }
   componentDidMount() {
     this.handleRenewPosition();

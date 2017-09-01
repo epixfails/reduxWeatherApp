@@ -48,13 +48,8 @@ class AddContact extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      phone: '',
       cityInput: false,
-      city: '',
-      email: '',
       errorAdd: this.props.errorAdd,
-      localError: '',
     };
     this.handleChangeName = this.handleChangeName.bind(this);
     this.handleChangePhone = this.handleChangePhone.bind(this);
