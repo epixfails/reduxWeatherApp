@@ -1,70 +1,101 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
 import WeatherError from './WeatherError';
-import { WeatherWrap, WeatherMain, WeatherMainInfo, WeatherMainInfoTemperature, WeatherCountry, WeatherCityTitle, WeatherImgWrap, ImageWeather, WeatherInfo, WeatherImage } from './weatherStyle';
 import sky from '../img/sky.svg';
 
+const Title = styled.h2`
+  font-size: 24px;
+`;
+const Country = styled.span`
+  float: right;
+  color: #525252;
+`;
+const MainInfo = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+const MainInfoTemperature = styled.p`
+  margin: 5px 10px;
+  font-size: 36px;
+  font-weight: 700;
+  color: #31a251;
+`;
+const Image = styled.img`
+  margin-right: 20px;
+  width: 60px;
+  height: 60px;
+`;
+const ImageWrap = styled.div`
+  width: 100%;
+  text-align: center;
+  padding: 50px 0;
+`;
+const ImageUndef = styled.img`
+  width: 150px;
+`;
+
+
 const Weather = props => (
-  <WeatherWrap>
-  {props.fetchState === 'initial' && (
-    <WeatherMain>
-      <WeatherCityTitle>Weather in the cities your contacts from</WeatherCityTitle>
-      <WeatherImgWrap>
-        <ImageWeather src={sky} />
-      </WeatherImgWrap>
-    </WeatherMain>
+  <div>
+    {!props.currentContact.name && (
+    <div>
+      <Title>Weather in the cities your contacts from</Title>
+      <ImageWrap>
+        <ImageUndef src={sky} />
+      </ImageWrap>
+    </div>
     )}
-    {props.fetchState === 'fetchDone' && (
-      props.fetchError === '' && (
-        <WeatherMain>
-          <WeatherCityTitle>Weather in {props.weather.name}
-            <WeatherCountry></WeatherCountry>
-          </WeatherCityTitle>
-          <WeatherMainInfo>
-            <WeatherImage src={`http://openweathermap.org/img/w/${props.weather.weather[0].icon}.png`} alt="weather" />
-            <WeatherMainInfoTemperature>
-              {Math.floor((props.weather.main.temp - 273) * 100) / 100} °С
-            </WeatherMainInfoTemperature>
-          </WeatherMainInfo>
-          <WeatherInfo>Temperature:
+    {props.fetchState === 'fetchDone' && props.errorFetch === '' && props.currentContact.name && (
+      <div>
+        <Title>Weather in {props.weather.name}
+          <Country>{props.weather.country}</Country>
+        </Title>
+        <MainInfo>
+          <Image src={`http://openweathermap.org/img/w/${props.weather.weather[0].icon}.png`} alt="weather" />
+          <MainInfoTemperature>
             {Math.floor((props.weather.main.temp - 273) * 100) / 100} °С
-          </WeatherInfo>
-          <WeatherInfo>
-            {props.weather.weather[0].description}
-          </WeatherInfo>
-          <WeatherInfo>Humidity:
-            {props.weather.main.humidity} %
-          </WeatherInfo>
-          <WeatherInfo>Wind:
-            {props.weather.wind.speed} m/s
-          </WeatherInfo>
-        </WeatherMain>
+          </MainInfoTemperature>
+        </MainInfo>
+        <p>Temperature:
+          {Math.floor((props.weather.main.temp - 273) * 100) / 100} °С
+        </p>
+        <p>
+          {props.weather.weather[0].main}
+        </p>
+        <p>Humidity:
+          {props.weather.main.humidity} %
+        </p>
+        <p>Wind:
+          {props.weather.wind.speed} m/s
+        </p>
+      </div>
       )
-    )}
-    {props.fetchError === 'city not found' && (
-      <WeatherError />
-    )}
-  </WeatherWrap>
+    }
+    { props.errorFetch === 'city not found' && props.currentContact.name && <WeatherError /> }
+  </div>
 );
 
 
-Weather.PropTypes = {
-  city: PropTypes.string.isRequired,
-  temperature: PropTypes.string.isRequired,
-  humidity: PropTypes.string.isRequired,
+Weather.propTypes = {
+  city: PropTypes.string,
+  fetchState: PropTypes.string,
+  errorFetch: PropTypes.string,
 };
 
 const mapStateToProps = (state) => {
-  const cityWeather = state.cityWeather;
-  const isFetching = state.api.isFetching;
-  const cityForecast = state.cityForecast;
-  const error = state.api.errorFetch;
+  const currentContact = state.contacts.currentContact;
+  const city = state.weather.cityWeather;
+  const weather = state.weather.cityForecast;
+  const fetchState = state.apiState.isFetching;
+  const errorFetch = state.apiState.errorFetch;
   return ({
-    city: cityWeather,
-    weather: cityForecast,
-    fetchState: isFetching,
-    fetchError: error,
+    city,
+    weather,
+    fetchState,
+    errorFetch,
+    currentContact,
   });
 };
 

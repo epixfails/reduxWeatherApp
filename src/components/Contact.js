@@ -1,19 +1,62 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ContactName, ContactPhone, ListItem, ButtonRemove, Icon, ContactControls } from './styles';
+import styled from 'styled-components';
 import trash from '../img/trash.svg';
+
+const Icon = styled.img`
+  width: 15px;
+  margin: 0;
+`;
+const ButtonRemove = styled.button`
+  border: none;
+  background: transparent;
+`;
+const ListItem = styled.li`
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  list-style: none;
+  border-bottom: 1px rgba(255, 140, 50, 0.2) solid;
+  background: ${props => props.active ? 'rgba(255, 140, 50, 0.2)' : '#fff'};
+  &:hover{
+    background: #ffc699;
+  }
+`;
+const Name = styled.div`
+  width:50%;
+  font-size:20px;
+  font-weight: 700;
+  overflow: hidden;
+`;
+const Phone = styled.div`
+  color: #CAC8C8;
+  font-size:18px;
+`;
+const Info = styled.div`
+  padding: 10px;
+  display: flex;
+  width: 80%;
+`;
+const Controls = styled.div`
+  width: 10%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+`;
 
 const Contact = props => (
   <ListItem active={props.active}>
-    <ContactName  onClick={props.onClickSetCurrentContact}>
-      {props.name}
-    </ContactName>
-    <ContactPhone onClick={props.onClickSetCurrentContact}>
-      {props.phone}
-    </ContactPhone>
-    <ContactControls>
+    <Info onClick={props.onClickSetCurrentContact}>
+      <Name>
+        {props.name}
+      </Name>
+      <Phone>
+        {props.phone}
+      </Phone>
+    </Info>
+    <Controls>
       <ButtonRemove onClick={props.onClickRemove}><Icon src={trash} alt="remove" /></ButtonRemove>
-    </ContactControls>
+    </Controls>
   </ListItem>
 );
 

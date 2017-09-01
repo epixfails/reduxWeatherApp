@@ -5,43 +5,14 @@ import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
 import App from './components/App';
-import './components/styles';
-import contactReducer from './reducers/reducers';
+import reducer from './reducers/index';
 import registerServiceWorker from './registerServiceWorker';
-import mySaga from './utilities/saga';
+import mySaga from './api/saga';
 
-const initialState = {
-  counter: 0,
-  contacts: [
-    {
-      name: 'Vasya',
-      phone: '+7495-111-11-77',
-      city: 'Moscow',
-      email: 'mail@ya.ya',
-    },
-    {
-      name: 'Manya',
-      phone: '+7911-111-11-77',
-      city: 'Saratov',
-      email: 'write.here@someone.com',
-    },
-  ],
-  currentContact: {},
-  addContactError: false,
-  filterValue: '',
-  cityWeather: 'Samara',
-  cityForecast: {},
-  api: {
-    isFetching: 'initial',
-    errorFetch: '',
-  },
-};
-
-const persistedState = localStorage.getItem('weatherAppState') ? JSON.parse(localStorage.getItem('weatherAppState')) : initialState;
-
+const persistedState = localStorage.getItem('weatherAppState') ? JSON.parse(localStorage.getItem('weatherAppState')) : {};
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
-              contactReducer,
+              reducer,
               persistedState,
               composeWithDevTools(applyMiddleware(sagaMiddleware)),
 );

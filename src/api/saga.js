@@ -1,6 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import requestApi from './apirequest';
-import { SET_WEATHER, GOT_WEATHER, GOT_WEATHER_ERROR } from '../actions/actions';
+import { requestApi } from './apirequest';
+import { SET_WEATHER, GOT_WEATHER, GOT_WEATHER_ERROR } from '../constants/constants';
 
 function* fetchUser(action) {
   try {
