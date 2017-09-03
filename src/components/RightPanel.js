@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Link } from 'react-router-dom';
-import { Route, Router } from 'react-router';
+import { Route } from 'react-router';
 import styled from 'styled-components';
 import Weather from './Weather';
 import FullContact from './FullContact';

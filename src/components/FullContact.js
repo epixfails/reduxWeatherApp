@@ -49,5 +49,7 @@ FullContact.propTypes = {
   city: PropTypes.string,
   email: PropTypes.string,
 };
-
+FullContact.defaultProps = {
+  name: '',
+};
 export default connect(mapStateToProps)(FullContact);
