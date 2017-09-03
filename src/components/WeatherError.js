@@ -25,58 +25,38 @@ const Input = styled.input`
   font-size: 16px;
   margin: 5px 0;
   padding-left:10px;
-  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 `;
 
+const WeatherError = ({ city, localNewCity }) => (
+  <div>
+    <Title>Sorry, we got no info about this city</Title>
+    <p>You can change the city now</p>
+    <Input
+      innerRef={input => this.newCity = input}
+      placeholder={city}
+    />
+    <InputSubmit onClick={() => localNewCity(this.newCity.value)}>
+      Confirm
+    </InputSubmit>
+  </div>
+);
 
-class WeatherError extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      city: props.city,
-      newCity: '',
-    };
-    this.handleChangeContact = this.handleChangeContact.bind(this);
-    this.handleNewCityName = this.handleNewCityName.bind(this);
-  }
-  handleNewCityName(event) {
-    this.setState({
-      newCity: event.target.value,
-    })
-  }
-  handleChangeContact() {
-    this.props.localNewCity(this.state.newCity)
-  }
-  render() {
-    return (
-      <div>
-        <Title>Sorry, we got no info about this city</Title>
-        <p>You can change the city now</p>
-        <Input onChange={this.handleNewCityName}placeholder={this.state.city} />
-        <InputSubmit onClick={this.handleChangeContact}>Confirm</InputSubmit>
-      </div>
-    );
-  }
-}
-
-const mapStateToProps = (state) => {
-  const city = state.contacts.currentContact.city;
-  return { city };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
+const mapStateToProps = state => state.contactsList.currentContact;
+const mapDispatchToProps = dispatch => (
+  {
     localNewCity: (city) => {
       dispatch(newCityName(city));
       dispatch(setWeather(city));
     },
-  };
-};
-
+  }
+);
 WeatherError.propTypes = {
   localNewCity: PropTypes.func.isRequired,
   city: PropTypes.string,
+};
+WeatherError.defaultProps = {
+  city: '',
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WeatherError);

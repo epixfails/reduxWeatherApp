@@ -44,28 +44,31 @@ const Controls = styled.div`
   justify-content: center;
 `;
 
-const Contact = props => (
-  <ListItem active={props.active}>
-    <Info onClick={props.onClickSetCurrentContact}>
-      <Name>
-        {props.name}
-      </Name>
-      <Phone>
-        {props.phone}
-      </Phone>
-    </Info>
-    <Controls>
-      <ButtonRemove onClick={props.onClickRemove}><Icon src={trash} alt="remove" /></ButtonRemove>
-    </Controls>
-  </ListItem>
-);
+const Contact = (props) => {
+  const { active, onClickSetCurrentContact, name, phone, onClickRemove } = props;
+  return (
+    <ListItem active={active}>
+      <Info onClick={onClickSetCurrentContact}>
+        <Name>
+          {name}
+        </Name>
+        <Phone>
+          {phone}
+        </Phone>
+      </Info>
+      <Controls>
+        <ButtonRemove onClick={onClickRemove}><Icon src={trash} alt="remove" /></ButtonRemove>
+      </Controls>
+    </ListItem>
+  );
+};
 
-Contact.PropTypes = {
+Contact.propTypes = {
   name: PropTypes.string.isRequired,
-  phone: PropTypes.string.isRequired,
+  phone: PropTypes.string,
+  active: PropTypes.bool,
   onClickRemove: PropTypes.func.isRequired,
   onClickSetCurrentContact: PropTypes.func.isRequired,
 };
-
 
 export default Contact;

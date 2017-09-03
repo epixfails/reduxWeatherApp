@@ -1,4 +1,5 @@
-import React, { Component} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { filterContact } from '../actions/actions';
@@ -10,30 +11,23 @@ const Input = styled.input`
   font-size: 16px;
   margin: 5px 0;
   padding-left:10px;
-  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 `;
 
-class ContactFilter extends Component {
-  constructor(props) {
-    super(props);
-    this.handleFilter = this.handleFilter.bind(this);
-  }
-  handleFilter(event) {
-    this.props.localFilter(event.target.value);
-  }
-  render() {
-    return <Input placeholder="filter contacts by name" onChange={this.handleFilter} />
-  }
-}
+const ContactFilter = props => (
+  <Input
+    placeholder="filter contacts by name"
+    onChange={event => props.localFilter(event.target.value)}
+  />
+);
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    localFilter: (filter) => {
-      dispatch(filterContact(filter));
-    },
-  };
+const mapDispatchToProps = dispatch => (
+  {
+    localFilter: (filter) => { dispatch(filterContact(filter)); },
+  }
+);
+ContactFilter.propTypes = {
+  localFilter: PropTypes.func.isRequired,
 };
-
 
 export default connect(null, mapDispatchToProps)(ContactFilter);

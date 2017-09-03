@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { getCurrentWeather } from '../api/apirequest';
 
 const Title = styled.p`
@@ -19,6 +19,23 @@ const Info = styled.p`
   margin: 5px;
   margin-right: 40px;
 `;
+const Rotate360 = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
+const Loader = styled.div`
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  margin: 0 25px;
+  border: 4px solid rgba(255, 140, 50, 0.2);
+  border-top-color: #FF8C32;
+  animation: ${Rotate360} 2s linear infinite;
+`;
 const Button = styled.button`
   background: #fff;
   border: 1px #FF8C32 solid;
@@ -35,7 +52,6 @@ const InfoWrap = styled.div`
   flex-direction: row;
 `;
 
-
 class CurrentPosition extends Component {
   constructor(props) {
     super(props);
@@ -49,42 +65,50 @@ class CurrentPosition extends Component {
     this.handleRenewPosition();
   }
   handleRenewPosition() {
-    const weather = getCurrentWeather();
-    weather.then(data =>
+    this.setState({
+      fetchState: 'fetching',
+    });
+    const weatherRequest = getCurrentWeather();
+    weatherRequest.then(data =>
       this.setState({
         weather: data,
+        fetchState: '',
       }),
     );
   }
-
   render() {
-    const weather = { ...this.state.weather };
+    const { name, main, wind, weather } = this.state.weather;
     return (
       <Wrap>
         <Title>Around you</Title>
-        {weather.name && (
+        {name &&
           <InfoWrap>
             <Info position>
-              You are here: {weather.name}
+              You are here: {name}
             </Info>
             <Info>
-              Temp: {Math.floor((weather.main.temp - 273) * 100) / 100} °С
+              Temp: {Math.floor((main.temp - 273) * 100) / 100} °С
             </Info>
             <Info>
-              {weather.weather[0].description}
+              {weather[0].description}
             </Info>
             <Info>
-              Humidity: {weather.main.humidity} %
+              Humidity: {main.humidity} %
             </Info>
             <Info>
-              Wind: {weather.wind.speed} m/s
+              Wind: {wind.speed} m/s
             </Info>
           </InfoWrap>
-        )}
-        {!weather.name && (
+        }
+        {!name &&
           <Info>Allow this App get your geo and view info here</Info>
-        )}
-        <Button onClick={this.handleRenewPosition}>Renew</Button>
+        }
+        {this.state.fetchState === 'fetching' &&
+          <Loader />
+        }
+        {this.state.fetchState === '' &&
+          <Button onClick={this.handleRenewPosition}>Renew</Button>
+        }
       </Wrap>
     );
   }

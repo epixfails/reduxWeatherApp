@@ -12,12 +12,10 @@ const NavWrap = styled.div`
   justify-content: space-around;
   border-bottom: 1px #CAC8C8 solid;
 `;
-
 const FullInfo = styled.div`
   width: 40%;
   padding: 10px 20px;
 `;
-
 const NavLink = styled(Link)`
   width: 50%;
   display: block;

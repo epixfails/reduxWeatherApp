@@ -1,29 +1,10 @@
 import * as Action from '../constants/constants';
 
-
-const initialState = {
-  addContactError: false,
-  contacts: [
-    {
-      name: 'Vasya',
-      city: '234523',
-      phone: '123-123-123',
-    },
-    {
-      name: 'Petya',
-      city: 'London',
-      phone: '123-123-123',
-    },
-  ],
-  currentContact: {},
-};
-
-export default function contacts(state = initialState, action) {
+export default function contactsList(state = { contacts: [] }, action) {
+  const newState = { ...state };
   switch (action.type) {
     case Action.ADD_CONTACT: {
-      const newState = { ...state };
       newState.addContactError = false;
-      newState.contacts = [...state.contacts];
       newState.contacts.forEach((contact) => {
         if (contact.name === action.contact.name) {
           newState.addContactError = true;
@@ -40,7 +21,6 @@ export default function contacts(state = initialState, action) {
       return newState;
     }
     case Action.REMOVE_CONTACT: {
-      const newState = { ...state };
       if (newState.contacts[action.id].name === newState.currentContact.name) {
         newState.currentContact = {};
       }
@@ -48,7 +28,6 @@ export default function contacts(state = initialState, action) {
       return newState;
     }
     case Action.NEW_CONTACT_CITY: {
-      const newState = { ...state };
       newState.contacts.forEach((contact) => {
         if (contact.name === newState.currentContact.name) {
           contact.city = action.city;
@@ -57,7 +36,6 @@ export default function contacts(state = initialState, action) {
       return newState;
     }
     case Action.SET_CURRENT_CONTACT: {
-      const newState = { ...state };
       newState.currentContact = { ...newState.contacts[action.id] };
       newState.contacts.forEach((contact) => {
         contact.active = false;
@@ -66,7 +44,6 @@ export default function contacts(state = initialState, action) {
       return newState;
     }
     default: {
-      const newState = { ...state };
       return newState;
     }
   }

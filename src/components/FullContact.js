@@ -12,12 +12,10 @@ export const ImgWrap = styled.div`
 export const Image = styled.img`
   width: 150px;
 `;
-
 export const Title = styled.h2`
   font-size: 24px;
   font-weight: 700;
 `;
-
 export const Item = styled.p`
   font-size: 18px;
   font-weight: 500;
@@ -25,33 +23,28 @@ export const Item = styled.p`
 
 const FullContact = ({ name, phone, city, email }) => (
   <div>
-    {!name && (
-    <div>
-      <Title>Select a contact</Title>
-      <ImgWrap>
-        <Image src={persons} />
-      </ImgWrap>
-    </div>
-    )}
-    {name && (
-    <div>
-      <Title>{name}</Title>
-      <Item>{phone}</Item>
-      <Item>From {city}</Item>
-      <Item>E-mail to: {email}</Item>
-    </div>
-    )}
+    {!name &&
+      <div>
+        <Title>Select a contact</Title>
+        <ImgWrap>
+          <Image src={persons} />
+        </ImgWrap>
+      </div>
+    }
+    {name &&
+      <div>
+        <Title>{name}</Title>
+        <Item>{phone}</Item>
+        <Item>From {city}</Item>
+        <Item>E-mail to: {email}</Item>
+      </div>
+    }
   </div>
 );
 
-
-const mapStateToProps = (state) => {
-  const contactToDisplay = state.contacts.currentContact;
-  return contactToDisplay;
-};
-
+const mapStateToProps = state => (state.contactsList.currentContact);
 FullContact.propTypes = {
-  name: PropTypes.string,
+  name: PropTypes.string.isRequired,
   phone: PropTypes.string,
   city: PropTypes.string,
   email: PropTypes.string,

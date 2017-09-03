@@ -47,20 +47,8 @@ const ListOfContacts = props => (
   </List>
 );
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    localRemoveContact: (index) => {
-      dispatch(removeContact(index));
-    },
-    localSetCurrentContact: (index, city) => {
-      dispatch(setCurrentContact(index));
-      dispatch(setWeather((!city) ? city = '' : city));
-    },
-  };
-};
-
 const mapStateToProps = (state) => {
-  const contactsArray = [...state.contacts.contacts].filter(function (elem) {
+  const contactsArray = [...state.contactsList.contacts].filter(function (elem) {
     const searchVal = elem.name.toLowerCase();
     return searchVal.indexOf(state.filterContacts.toLowerCase()) !== -1;
   });
@@ -68,12 +56,20 @@ const mapStateToProps = (state) => {
     contactsArray,
   };
 };
-
-
-ListOfContacts.propTypes = {
-  localRemoveContact: PropTypes.func,
-  localSetCurrentContact: PropTypes.func,
+const mapDispatchToProps = (dispatch) => {
+  return {
+    localRemoveContact: (index) => {
+      dispatch(removeContact(index));
+    },
+    localSetCurrentContact: (index, city) => {
+      dispatch(setCurrentContact(index));
+      dispatch(setWeather(city));
+    },
+  };
 };
-
+ListOfContacts.propTypes = {
+  localRemoveContact: PropTypes.func.isRequired,
+  localSetCurrentContact: PropTypes.func.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListOfContacts);

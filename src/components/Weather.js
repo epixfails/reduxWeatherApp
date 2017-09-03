@@ -36,67 +36,58 @@ const ImageUndef = styled.img`
   width: 150px;
 `;
 
-
-const Weather = props => (
+const Weather = ({ currentContact, isFetching, errorFetch, cityForecast }) => (
   <div>
-    {!props.currentContact.name && (
+    {!currentContact.name &&
     <div>
       <Title>Weather in the cities your contacts from</Title>
       <ImageWrap>
         <ImageUndef src={sky} />
       </ImageWrap>
     </div>
-    )}
-    {props.fetchState === 'fetchDone' && props.errorFetch === '' && props.currentContact.name && (
+    }
+    {isFetching === 'fetchDone' && errorFetch === '' && currentContact.name &&
       <div>
-        <Title>Weather in {props.weather.name}
-          <Country>{props.weather.country}</Country>
+        <Title>Weather in {cityForecast.name}
+          <Country>{cityForecast.sys.country}</Country>
         </Title>
         <MainInfo>
-          <Image src={`http://openweathermap.org/img/w/${props.weather.weather[0].icon}.png`} alt="weather" />
+          <Image src={`http://openweathermap.org/img/w/${cityForecast.weather[0].icon}.png`} alt="weather" />
           <MainInfoTemperature>
-            {Math.floor((props.weather.main.temp - 273) * 100) / 100} °С
+            {Math.floor((cityForecast.main.temp - 273) * 100) / 100} °С
           </MainInfoTemperature>
         </MainInfo>
         <p>Temperature:
-          {Math.floor((props.weather.main.temp - 273) * 100) / 100} °С
+          {Math.floor((cityForecast.main.temp - 273) * 100) / 100} °С
         </p>
         <p>
-          {props.weather.weather[0].main}
+          {cityForecast.weather[0].main}
         </p>
         <p>Humidity:
-          {props.weather.main.humidity} %
+          {cityForecast.main.humidity} %
         </p>
         <p>Wind:
-          {props.weather.wind.speed} m/s
+          {cityForecast.wind.speed} m/s
         </p>
       </div>
-      )
     }
-    { props.errorFetch === 'city not found' && props.currentContact.name && <WeatherError /> }
+    { errorFetch === 'city not found' && currentContact.name && <WeatherError /> }
   </div>
 );
 
-
 Weather.propTypes = {
-  city: PropTypes.string,
-  fetchState: PropTypes.string,
+  isFetching: PropTypes.string,
   errorFetch: PropTypes.string,
 };
-
+Weather.defaultProps = {
+  currentContact: {},
+  cityForecast: {},
+};
 const mapStateToProps = (state) => {
-  const currentContact = state.contacts.currentContact;
-  const city = state.weather.cityWeather;
-  const weather = state.weather.cityForecast;
-  const fetchState = state.apiState.isFetching;
-  const errorFetch = state.apiState.errorFetch;
-  return ({
-    city,
-    weather,
-    fetchState,
-    errorFetch,
-    currentContact,
-  });
+  const { currentContact } = state.contactsList;
+  const { cityForecast } = state.weather;
+  const { isFetching, errorFetch } = state.apiState;
+  return { cityForecast, isFetching, errorFetch, currentContact };
 };
 
 export default connect(mapStateToProps)(Weather);
