@@ -47,6 +47,7 @@ class AddContact extends Component {
     this.state = {
       isAdditionFieldVisible: false,
       errorAdd: this.props.errorAdd,
+      name: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
